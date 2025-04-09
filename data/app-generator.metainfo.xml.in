@@ -5,7 +5,7 @@
   <translation type="gettext">io.github.ellie_commons.app-generator</translation>
   <metadata_license>CC-BY-4.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  
+
   <name>App Generator</name>
   <summary>Create an elementary OS app using one of the pre-made app templates</summary>
   <description>
@@ -44,12 +44,12 @@
   <update_contact>alainmh23@gmail.com</update_contact>
 
   <releases>
-    <release version="1.0.2" date="2024-12-27">
+    <release version="1.0.4" date="2025-04-09">
       <description>
         <p>First Release!!!</p>
       </description>
     </release>
-    
+
     <release version="1.0.0" date="2024-10-08">
       <description>
         <p>First Release!!!</p>

@@ -123,10 +123,6 @@ public class MainWindow : Gtk.ApplicationWindow {
             });
         });
 
-        form_view.back.connect (() => {
-            main_stack.visible_child_name = "developer";
-        });
-
         developer_view.next.connect ((name, email) => {
             stepper.active_index = 1;
             main_stack.visible_child_name = "form";
@@ -134,6 +130,11 @@ public class MainWindow : Gtk.ApplicationWindow {
             form_view.developer_name = name;
             form_view.developer_email = email;
             form_view.focus_name ();
+        });
+
+        form_view.back.connect (() => {
+            stepper.active_index = 0;
+            main_stack.visible_child_name = "developer";
         });
 
         success_view.back.connect (() => {

@@ -5,6 +5,7 @@
 
 public class AppGenerator : Gtk.Application {
     public MainWindow main_window;
+    public static Settings settings;
 
     public static AppGenerator _instance = null;
     public static AppGenerator instance {
@@ -16,7 +17,6 @@ public class AppGenerator : Gtk.Application {
         }
     }
 
-
     public AppGenerator () {
         Object (
             application_id: "io.github.ellie_commons.app-generator",
@@ -24,15 +24,18 @@ public class AppGenerator : Gtk.Application {
         );
     }
 
-    protected override void startup () {
-        base.startup ();
-
-        Granite.init ();
+    construct {
+        settings = new Settings ("io.github.ellie_commons.app-generator");
 
         Intl.setlocale (LocaleCategory.ALL, "");
         Intl.bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
         Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         Intl.textdomain (GETTEXT_PACKAGE);
+    }
+
+    protected override void startup () {
+        base.startup ();
+        Granite.init ();
 
         var quit_action = new SimpleAction ("quit", null);
 
@@ -55,7 +58,6 @@ public class AppGenerator : Gtk.Application {
         * Set maximize after height/width else window is min size on unmaximize
         * Bind maximize as SET else get get bad sizes
         */
-        var settings = new Settings ("io.github.ellie_commons.app-generator");
         settings.bind ("window-height", main_window, "default-height", SettingsBindFlags.DEFAULT);
         settings.bind ("window-width", main_window, "default-width", SettingsBindFlags.DEFAULT);
 

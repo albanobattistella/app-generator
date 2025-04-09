@@ -2,7 +2,7 @@
 project(
   'io.github.ellie_commons.app-generator',
   'vala', 'c',
-  version: '1.0.2'
+  version: '1.0.4'
 )
 
 # Include Gnome and the translations module

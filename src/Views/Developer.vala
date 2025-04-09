@@ -1,12 +1,13 @@
 /*
-* SPDX-License-Identifier: GPL-3.0-or-later
-* SPDX-FileCopyrightText: 2024 Alain <alainmh23@gmail.com>
-*/
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * SPDX-FileCopyrightText: 2024 Alain <alainmh23@gmail.com>
+ */
 
 public class Views.Developer : Adw.Bin {
     private Granite.ValidatedEntry name_entry;
     private Granite.ValidatedEntry email_entry;
     private Gtk.Button next_button;
+    private Gtk.CheckButton remember_button;
 
     public signal void next (string name, string email);
 
@@ -54,7 +55,8 @@ public class Views.Developer : Adw.Bin {
         email_box.append (email_entry);
         email_box.append (email_invalid);
 
-        var remember_button = new Gtk.CheckButton.with_label (_("Remember"));
+        remember_button = new Gtk.CheckButton.with_label (_("Remember"));
+        AppGenerator.settings.bind ("remember-user-data", remember_button, "active", SettingsBindFlags.DEFAULT);
 
         next_button = new Gtk.Button.with_label (_("Next")) {
             margin_bottom = 32,
@@ -82,6 +84,7 @@ public class Views.Developer : Adw.Bin {
         };
 
         child = content_box;
+        update_user_data ();
 
         name_entry.changed.connect (() => {
             check_valid ();
@@ -99,9 +102,13 @@ public class Views.Developer : Adw.Bin {
     }
 
     private void go_next () {
-        if (is_valid) {
-            next (name_entry.text, email_entry.text);
+        if (!is_valid) {
+            return;
         }
+
+        next (name_entry.text, email_entry.text);
+        AppGenerator.settings.set_string ("user-name", remember_button.active ? name_entry.text : "");
+        AppGenerator.settings.set_string ("user-email", remember_button.active ? email_entry.text : "");
     }
 
     private void check_valid () {
@@ -111,5 +118,18 @@ public class Views.Developer : Adw.Bin {
     public void reset_form () {
         name_entry.text = "";
         email_entry.text = "";
+    }
+
+    private void update_user_data () {
+        if (!AppGenerator.settings.get_boolean ("remember-user-data")) {
+            return;
+        }
+
+        if (AppGenerator.settings.get_string ("user-name") != "") {
+            name_entry.text = AppGenerator.settings.get_string ("user-name");
+        }
+
+        email_entry.text = AppGenerator.settings.get_string ("user-email");
+        check_valid ();
     }
 }
