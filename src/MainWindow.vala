@@ -1,18 +1,18 @@
 /*
-* SPDX-License-Identifier: GPL-3.0-or-later
-* SPDX-FileCopyrightText: 2024 Alain <alainmh23@gmail.com>
-*/
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * SPDX-FileCopyrightText: 2025 Alain <alainmh23@gmail.com>
+ */
 
 public class MainWindow : Gtk.ApplicationWindow {
     private Gtk.Stack main_stack;
 
     public MainWindow (Gtk.Application application) {
         Object (
-            application: application,
-            default_height: 300,
-            default_width: 300,
-            icon_name: "applications-development",
-            title: _("App Generator")
+                application: application,
+                default_height: 300,
+                default_width: 300,
+                icon_name: "applications-development",
+                title: _("App Generator")
         );
     }
 
@@ -96,6 +96,7 @@ public class MainWindow : Gtk.ApplicationWindow {
         toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
+        valign = START;
 
         // We need to hide the title area for the split headerbar
         var null_title = new Gtk.Grid () {

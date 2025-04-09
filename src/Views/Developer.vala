@@ -54,6 +54,8 @@ public class Views.Developer : Adw.Bin {
         email_box.append (email_entry);
         email_box.append (email_invalid);
 
+        var remember_button = new Gtk.CheckButton.with_label (_("Remember"));
+
         next_button = new Gtk.Button.with_label (_("Next")) {
             margin_bottom = 32,
             sensitive = false,
@@ -62,13 +64,14 @@ public class Views.Developer : Adw.Bin {
         };
         next_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
-        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24);
+        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
         form_box.append (new Gtk.Label (_("Developer")) {
             halign = START,
             css_classes = { Granite.STYLE_CLASS_H1_LABEL }
         });
         form_box.append (name_box);
         form_box.append (email_box);
+        form_box.append (remember_button);
         form_box.append (next_button);
 
         var content_box = new Adw.Bin () {

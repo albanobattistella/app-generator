@@ -5,6 +5,7 @@ Type=Application
 Name=App Generator
 Comment=Create an elementary OS app using one of the pre-made app templates.
 Categories=Development;Education;
+Keywords=development;elementaryos;template;
 
 Icon=io.github.ellie_commons.app-generator
 Exec=io.github.ellie_commons.app-generator

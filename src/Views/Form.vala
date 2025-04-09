@@ -124,7 +124,7 @@ public class Views.Form : Adw.Bin {
         buttons_box.append (back_button);
         buttons_box.append (create_button);
 
-        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24);
+        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
         form_box.append (new Gtk.Label (_("Application")) {
             halign = START,
             css_classes = { Granite.STYLE_CLASS_H1_LABEL }
@@ -269,19 +269,23 @@ public class Views.Form : Adw.Bin {
         string data_meson_file = GLib.Path.build_filename (project_folder, "data", "meson.build");
         set_file_content (data_meson_file, "{{PROJECT_NAME}}", project_name);
 
+        var datetime = new GLib.DateTime.now_local ();
+        
         // src app
         string src_application_file = GLib.Path.build_filename (project_folder, "src", "Application.vala");
         set_file_content (src_application_file, "{{APPLICATION_ID_GSCHEMA}}", application_id_schema);
         set_file_content (src_application_file, "{{APPLICATION_ID}}", application_id);
-        set_file_content (new_appdata_file, "{{DEVELOPER_NAME}}", developer_name);
-        set_file_content (new_appdata_file, "{{DEVELOPER_EMAIL}}", developer_email);
+        set_file_content (src_application_file, "{{DEVELOPER_NAME}}", developer_name);
+        set_file_content (src_application_file, "{{DEVELOPER_EMAIL}}", developer_email);
+        set_file_content (src_application_file, "{{YEAR}}", datetime.get_year ().to_string ());
 
         // src window
         string src_window_file = GLib.Path.build_filename (project_folder, "src", "MainWindow.vala");
         set_file_content (src_window_file, "{{APPLICATION_ID_GSCHEMA}}", application_id_schema);
         set_file_content (src_window_file, "{{APPLICATION_ID}}", application_id);
-        set_file_content (new_appdata_file, "{{DEVELOPER_NAME}}", developer_name);
-        set_file_content (new_appdata_file, "{{DEVELOPER_EMAIL}}", developer_email);
+        set_file_content (src_window_file, "{{DEVELOPER_NAME}}", developer_name);
+        set_file_content (src_window_file, "{{DEVELOPER_EMAIL}}", developer_email);
+        set_file_content (src_window_file, "{{YEAR}}", datetime.get_year ().to_string ());
 
         // Set Po files
         string po_extra_window_file = GLib.Path.build_filename (project_folder, "po", "extra", "POTFILES");
